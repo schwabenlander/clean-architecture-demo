@@ -1,0 +1,23 @@
+# Ignore build outputs
+**/bin/
+**/obj/
+
+# Ignore VS/VSCode files
+.vs/
+.vscode/
+*.user
+
+# Ignore git files
+.git/
+.gitignore
+
+# Ignore Docker files themselves
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Ignore other unnecessary files
+README.md
+LICENSE.txt
+Diagrams/
+.idea/
