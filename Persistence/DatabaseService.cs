@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -44,7 +44,7 @@ namespace CleanArchitecture.Persistence
         {
             var connectionString = _configuration.GetConnectionString("CleanArchitecture");
 
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseNpgsql(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
