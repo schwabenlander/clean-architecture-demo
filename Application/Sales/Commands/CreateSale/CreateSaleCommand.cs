@@ -27,7 +27,7 @@ namespace CleanArchitecture.Application.Sales.Commands.CreateSale
 
         public void Execute(CreateSaleModel model)
         {
-            var date = _timeProvider.GetUtcNow().Date;
+            var date = DateTime.SpecifyKind(_timeProvider.GetUtcNow().DateTime.Date, DateTimeKind.Utc);
 
             var customer = _database.Customers
                 .Single(p => p.Id == model.CustomerId);
