@@ -44,7 +44,7 @@ namespace CleanArchitecture.Persistence.Sales
                 new
                 {
                     Id = 1,
-                    Date = DateTime.Parse("2025-01-01"),
+                    Date = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                     CustomerId = 1,
                     EmployeeId = 1,
                     ProductId = 1,
@@ -55,7 +55,7 @@ namespace CleanArchitecture.Persistence.Sales
                 new
                 {
                     Id = 2,
-                    Date = DateTime.Parse("2025-01-02"),
+                    Date = new DateTime(2025, 1, 2, 0, 0, 0, DateTimeKind.Utc),
                     CustomerId = 2,
                     EmployeeId = 2,
                     ProductId = 2,
@@ -66,7 +66,7 @@ namespace CleanArchitecture.Persistence.Sales
                 new
                 {
                     Id = 3,
-                    Date = DateTime.Parse("2025-01-03"),
+                    Date = new DateTime(2025, 1, 3, 0, 0, 0, DateTimeKind.Utc),
                     CustomerId = 3,
                     EmployeeId = 3,
                     ProductId = 3,

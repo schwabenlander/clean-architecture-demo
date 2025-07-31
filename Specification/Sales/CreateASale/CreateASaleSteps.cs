@@ -2,7 +2,6 @@
 using System.Linq;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Sales.Commands.CreateSale;
-using CleanArchitecture.Common.Dates;
 using CleanArchitecture.Specification.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -30,9 +29,9 @@ namespace CleanArchitecture.Specification.Sales.CreateASale
         {
             var saleInfo = table.CreateInstance<CreateSaleInfoModel>();
 
-            _context.Mocker.GetMock<IDateService>()
-                .Setup(p => p.GetDate())
-                .Returns(saleInfo.Date);
+            _context.Mocker.GetMock<TimeProvider>()
+                .Setup(p => p.GetUtcNow())
+                .Returns(new DateTimeOffset(saleInfo.Date.ToUniversalTime()));
 
             var mockDatabase = _context.DatabaseService;
                

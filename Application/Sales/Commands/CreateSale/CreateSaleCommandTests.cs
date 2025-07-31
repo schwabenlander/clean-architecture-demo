@@ -5,7 +5,6 @@ using System.Linq;
 using Moq.AutoMock;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Sales.Commands.CreateSale.Factory;
-using CleanArchitecture.Common.Dates;
 using CleanArchitecture.Domain.Customers;
 using CleanArchitecture.Domain.Employees;
 using CleanArchitecture.Domain.Products;
@@ -24,7 +23,7 @@ namespace CleanArchitecture.Application.Sales.Commands.CreateSale
         private CreateSaleModel _model;
         private Sale _sale;
 
-        private static readonly DateTime Date = new(2001, 2, 3);
+        private static readonly DateTime Date = new(2001, 2, 3, 0, 0, 0, DateTimeKind.Utc);
         private const int CustomerId = 1;
         private const int EmployeeId = 2;
         private const int ProductId = 3;
@@ -62,9 +61,9 @@ namespace CleanArchitecture.Application.Sales.Commands.CreateSale
             
             _mocker = new AutoMocker();
 
-            _mocker.GetMock<IDateService>()
-                .Setup(p => p.GetDate())
-                .Returns(Date);
+            _mocker.GetMock<TimeProvider>()
+                .Setup(p => p.GetUtcNow())
+                .Returns(new DateTimeOffset(Date));
 
             _mocker.GetMock<IDatabaseService>()
                 .Setup(p => p.Customers)

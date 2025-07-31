@@ -23,6 +23,8 @@ class Program
             p => p.ViewLocationExpanders.Add(
                 new CustomViewLocationExpander()));
 
+        builder.Services.AddSingleton(TimeProvider.System);
+
         builder.Services.Scan(p => p.FromAssemblies(assemblies)
             .AddClasses()
             .AsMatchingInterface());

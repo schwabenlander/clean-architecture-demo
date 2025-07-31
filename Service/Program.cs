@@ -24,6 +24,8 @@ class Program
 
         builder.Services.AddAdvancedDependencyInjection();
 
+        builder.Services.AddSingleton(TimeProvider.System);
+
         builder.Services.Scan(p => p.FromAssemblies(assemblies)
             .AddClasses()
             .AsMatchingInterface());

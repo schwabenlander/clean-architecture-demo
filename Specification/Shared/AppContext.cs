@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq.AutoMock;
 using CleanArchitecture.Application.Interfaces;
-using CleanArchitecture.Common.Dates;
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +15,7 @@ namespace CleanArchitecture.Specification.Shared
         public IServiceProvider Container;
         public IDatabaseService DatabaseService;
         public IInventoryService InventoryService;
-        public IDateService DateService;
+        public TimeProvider TimeProvider;
 
         public AppContext()
         {
@@ -30,13 +29,13 @@ namespace CleanArchitecture.Specification.Shared
 
             InventoryService =  Mocker.GetMock<IInventoryService>().Object;
 
-            var mockDateService = Mocker.GetMock<IDateService>();
+            var mockTimeProvider = Mocker.GetMock<TimeProvider>();
 
-            mockDateService
-                .Setup(p => p.GetDate())
-                .Returns(DateTime.Parse("2001-02-03"));
+            mockTimeProvider
+                .Setup(p => p.GetUtcNow())
+                .Returns(new DateTimeOffset(DateTime.Parse("2001-02-03").ToUniversalTime()));
 
-            DateService = mockDateService.Object;
+            TimeProvider = mockTimeProvider.Object;
 
             var files = Directory.GetFiles(
                 AppDomain.CurrentDomain.BaseDirectory,
@@ -51,7 +50,7 @@ namespace CleanArchitecture.Specification.Shared
                     .AsMatchingInterface())
                 .AddSingleton(_ => DatabaseService)
                 .AddSingleton(_ => InventoryService)
-                .AddSingleton(_ => DateService)
+                .AddSingleton(_ => TimeProvider)
                 .BuildServiceProvider();
 
             Container = provider;
